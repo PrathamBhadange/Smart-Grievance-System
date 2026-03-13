@@ -1,0 +1,123 @@
+[
+  {
+    "_id": "mmkcbf0w1babcqr",
+    "type": "sla_warning",
+    "complaintId": "SG-2026384582868",
+    "category": "Roads & Infra",
+    "message": "SLA Warning: Complaint SG-2026384582868 nearing deadline (117min remaining)",
+    "targetRole": "admin",
+    "read": false,
+    "createdAt": "2026-03-10T08:20:33.104Z",
+    "updatedAt": "2026-03-10T08:20:33.104Z"
+  },
+  {
+    "_id": "mmkcs7tner01hhs",
+    "type": "sla_warning",
+    "complaintId": "SG-TEST-002",
+    "category": "Water Supply",
+    "message": "SLA Warning: Complaint SG-TEST-002 nearing deadline",
+    "targetRole": "admin",
+    "read": false,
+    "createdAt": "2026-03-10T08:33:36.922Z",
+    "updatedAt": "2026-03-10T08:33:36.922Z"
+  },
+  {
+    "_id": "mmkcs7tnfyni9pn",
+    "type": "sla_breach",
+    "complaintId": "SG-TEST-003",
+    "category": "Roads & Infra",
+    "message": "SLA Breach: Complaint SG-TEST-003 exceeded SLA. Escalated to Department Head",
+    "targetRole": "admin",
+    "read": false,
+    "createdAt": "2026-03-10T08:33:36.923Z",
+    "updatedAt": "2026-03-10T08:33:36.923Z"
+  },
+  {
+    "_id": "mmkg0h2586wx0al",
+    "type": "sla_breach",
+    "complaintId": "SG-TEST-002",
+    "category": "Water Supply",
+    "message": "SLA Breach: Complaint SG-TEST-002 exceeded SLA. Escalated to Ward Supervisor",
+    "targetRole": "admin",
+    "read": false,
+    "createdAt": "2026-03-10T10:04:00.989Z",
+    "updatedAt": "2026-03-10T10:04:00.989Z"
+  },
+  {
+    "_id": "mmkhfofmhmlal34",
+    "type": "sla_breach",
+    "complaintId": "SG-2026384582868",
+    "category": "Roads & Infra",
+    "message": "SLA Breach: Complaint SG-2026384582868 exceeded SLA. Escalated to Ward Supervisor",
+    "targetRole": "admin",
+    "read": false,
+    "createdAt": "2026-03-10T10:43:50.002Z",
+    "updatedAt": "2026-03-10T10:43:50.002Z"
+  },
+  {
+    "_id": "mmktz91qu4s6h0f",
+    "type": "sla_warning",
+    "complaintId": "SG-TEST-001",
+    "category": "Sanitation",
+    "message": "SLA Warning: Complaint SG-TEST-001 nearing deadline (119min remaining)",
+    "targetRole": "admin",
+    "read": false,
+    "createdAt": "2026-03-10T16:34:58.574Z",
+    "updatedAt": "2026-03-10T16:34:58.574Z"
+  },
+  {
+    "_id": "mmky91uuzbaluhh",
+    "type": "sla_breach",
+    "complaintId": "SG-TEST-001",
+    "category": "Sanitation",
+    "message": "SLA Breach: Complaint SG-TEST-001 exceeded SLA. Escalated to Ward Supervisor",
+    "targetRole": "admin",
+    "read": false,
+    "createdAt": "2026-03-10T18:34:34.278Z",
+    "updatedAt": "2026-03-10T18:34:34.278Z"
+  },
+  {
+    "_id": "mmmda75eholkjy6",
+    "type": "sla_breach",
+    "complaintId": "SG-2026622822744",
+    "category": "Water Supply",
+    "message": "SLA Breach: Complaint SG-2026622822744 exceeded SLA. Escalated to Ward Supervisor",
+    "targetRole": "admin",
+    "read": false,
+    "createdAt": "2026-03-11T18:23:08.210Z",
+    "updatedAt": "2026-03-11T18:23:08.210Z"
+  },
+  {
+    "_id": "mmmda75hy7t2rs2",
+    "type": "sla_breach",
+    "complaintId": "SG-TEST-005",
+    "category": "Public Safety",
+    "message": "SLA Breach: Complaint SG-TEST-005 exceeded SLA. Escalated to Ward Supervisor",
+    "targetRole": "admin",
+    "read": false,
+    "createdAt": "2026-03-11T18:23:08.213Z",
+    "updatedAt": "2026-03-11T18:23:08.213Z"
+  },
+  {
+    "_id": "mmmda75lg6muekt",
+    "type": "sla_breach",
+    "complaintId": "SG-2026317240101",
+    "category": "Water Supply",
+    "message": "SLA Breach: Complaint SG-2026317240101 exceeded SLA. Escalated to Ward Supervisor",
+    "targetRole": "admin",
+    "read": false,
+    "createdAt": "2026-03-11T18:23:08.217Z",
+    "updatedAt": "2026-03-11T18:23:08.217Z"
+  },
+  {
+    "_id": "mmmda75o1jh5gkw",
+    "type": "sla_breach",
+    "complaintId": "SG-2026434888463",
+    "category": "Water Supply",
+    "message": "SLA Breach: Complaint SG-2026434888463 exceeded SLA. Escalated to Ward Supervisor",
+    "targetRole": "admin",
+    "read": false,
+    "createdAt": "2026-03-11T18:23:08.220Z",
+    "updatedAt": "2026-03-11T18:23:08.220Z"
+  }
+]
