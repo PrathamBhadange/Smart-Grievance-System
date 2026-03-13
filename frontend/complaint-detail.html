@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JanConnect - Complaint Details</title>
+<meta name="description" content="View detailed information about your grievance complaint on JanConnect.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+    font-family:'Inter','Segoe UI',sans-serif;
+    background:#f4f6f9;
+    color:#333;
+    min-height:100vh;
+}
+
+/* ---- Top Nav ---- */
+.top-nav{
+    background:#1a2a3a;
+    padding:14px 32px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    box-shadow:0 2px 8px rgba(0,0,0,0.15);
+}
+
+.nav-brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.nav-logo{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    object-fit:cover;
+}
+
+.nav-title{
+    font-size:20px;
+    font-weight:700;
+    color:#fff;
+}
+
+.nav-subtitle{
+    font-size:13px;
+    color:#a0b0c0;
+    margin-top:2px;
+}
+
+/* ---- Page Header ---- */
+.page-header{
+    background:#fff;
+    border-bottom:1px solid #e0e4e8;
+    padding:20px 40px;
+}
+
+.page-header h1{
+    font-size:22px;
+    font-weight:700;
+    color:#1a2a3a;
+    margin-bottom:4px;
+}
+
+.page-header p{
+    font-size:14px;
+    color:#777;
+}
+
+.back-link{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:10px 0;
+    margin:0 40px;
+    font-size:14px;
+    color:#2c3e90;
+    text-decoration:none;
+    font-weight:600;
+    transition:color 0.2s;
+}
+
+.back-link:hover{
+    color:#1e2d6a;
+}
+
+/* ---- Main Layout ---- */
+.detail-main{
+    max-width:1100px;
+    margin:0 auto;
+    padding:24px 40px 40px;
+    display:grid;
+    grid-template-columns:1fr 380px;
+    gap:24px;
+    align-items:start;
+}
+
+/* ---- Cards ---- */
+.detail-card{
+    background:#fff;
+    border:1px solid #e0e4e8;
+    border-radius:10px;
+    padding:28px 30px;
+    box-shadow:0 1px 4px rgba(0,0,0,0.05);
+}
+
+.detail-card h2{
+    font-size:18px;
+    font-weight:700;
+    color:#1a2a3a;
+    margin-bottom:20px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+/* ---- Complaint Info Grid ---- */
+.info-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+}
+
+.info-item{
+    display:flex;
+    flex-direction:column;
+}
+
+.info-item.full-width{
+    grid-column:1/-1;
+}
+
+.info-label{
+    font-size:12px;
+    font-weight:600;
+    color:#5a3e2b;
+    margin-bottom:4px;
+    text-transform:uppercase;
+    letter-spacing:0.3px;
+}
+
+.info-value{
+    font-size:14px;
+    color:#333;
+    padding:10px 14px;
+    background:#f8f9fa;
+    border:1px solid #e0e4e8;
+    border-radius:6px;
+    min-height:40px;
+    word-wrap:break-word;
+}
+
+.info-value.description{
+    min-height:80px;
+    white-space:pre-wrap;
+}
+
+/* Status Badge */
+.status-badge{
+    display:inline-block;
+    padding:5px 14px;
+    border-radius:5px;
+    font-size:12px;
+    font-weight:700;
+    color:#fff;
+}
+
+.status-pending{background:#f39c12;}
+.status-resolved{background:#2ecc71;}
+.status-escalated{background:#e74c3c;}
+.status-in-progress{background:#3498db;}
+
+/* Evidence Image */
+.evidence-section{
+    margin-top:18px;
+}
+
+.evidence-section img{
+    max-width:100%;
+    max-height:250px;
+    border-radius:8px;
+    border:1px solid #ddd;
+    cursor:pointer;
+    transition:transform 0.2s;
+}
+
+.evidence-section img:hover{
+    transform:scale(1.02);
+}
+
+.no-evidence{
+    color:#999;
+    font-size:13px;
+    font-style:italic;
+    padding:20px;
+    text-align:center;
+    background:#f8f9fa;
+    border:2px dashed #ddd;
+    border-radius:8px;
+}
+
+/* ---- Right Sidebar ---- */
+.sidebar{
+    display:flex;
+    flex-direction:column;
+    gap:24px;
+}
+
+/* ---- SLA Countdown ---- */
+.sla-card{
+    text-align:center;
+}
+
+.sla-card h2{
+    justify-content:center;
+    margin-bottom:16px;
+}
+
+.sla-timer{
+    font-size:48px;
+    font-weight:800;
+    color:#e74c3c;
+    letter-spacing:1px;
+    margin-bottom:8px;
+    font-variant-numeric:tabular-nums;
+}
+
+.sla-timer .time-unit{
+    font-size:20px;
+    font-weight:600;
+    color:#888;
+}
+
+.sla-label{
+    font-size:14px;
+    color:#777;
+    margin-top:4px;
+}
+
+.sla-status{
+    margin-top:14px;
+    padding:8px 16px;
+    border-radius:6px;
+    font-size:13px;
+    font-weight:600;
+    display:inline-block;
+}
+
+.sla-within{
+    background:#e8f5e9;
+    color:#2e7d32;
+}
+
+.sla-warning{
+    background:#fff3e0;
+    color:#e65100;
+}
+
+.sla-breached{
+    background:#ffebee;
+    color:#c62828;
+}
+
+.sla-resolved-badge{
+    background:#e8f5e9;
+    color:#2e7d32;
+}
+
+/* ---- Progress Timeline ---- */
+.timeline{
+    margin-top:14px;
+}
+
+.timeline-item{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    padding-bottom:18px;
+    position:relative;
+}
+
+.timeline-item:not(:last-child)::before{
+    content:'';
+    position:absolute;
+    left:11px;
+    top:26px;
+    bottom:0;
+    width:2px;
+    background:#e0e4e8;
+}
+
+.timeline-dot{
+    width:24px;
+    height:24px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:12px;
+    flex-shrink:0;
+    color:#fff;
+}
+
+.dot-active{
+    background:#2c3e90;
+}
+
+.dot-done{
+    background:#2ecc71;
+}
+
+.dot-pending{
+    background:#ddd;
+    color:#999;
+}
+
+.dot-escalated{
+    background:#e74c3c;
+}
+
+.timeline-content h4{
+    font-size:14px;
+    font-weight:600;
+    color:#333;
+    margin-bottom:2px;
+}
+
+.timeline-content p{
+    font-size:12px;
+    color:#999;
+}
+
+/* ---- Feedback Section ---- */
+.feedback-card textarea{
+    width:100%;
+    padding:12px;
+    border:1px solid #c8cdd3;
+    border-radius:6px;
+    font-size:14px;
+    font-family:'Inter','Segoe UI',sans-serif;
+    resize:vertical;
+    min-height:90px;
+    outline:none;
+    transition:border-color 0.2s;
+}
+
+.feedback-card textarea:focus{
+    border-color:#2c3e90;
+    box-shadow:0 0 0 3px rgba(44,62,144,0.1);
+}
+
+.feedback-card textarea::placeholder{
+    color:#aaa;
+}
+
+.feedback-btn{
+    margin-top:12px;
+    background:#e74c3c;
+    color:#fff;
+    border:none;
+    padding:10px 24px;
+    border-radius:6px;
+    font-size:14px;
+    font-weight:600;
+    cursor:pointer;
+    transition:background 0.2s;
+}
+
+.feedback-btn:hover{
+    background:#c0392b;
+}
+
+.feedback-btn:disabled{
+    background:#ccc;
+    cursor:not-allowed;
+}
+
+.feedback-success{
+    color:#2e7d32;
+    font-size:13px;
+    font-weight:600;
+    margin-top:8px;
+}
+
+/* ---- Loading State ---- */
+.loading-state{
+    text-align:center;
+    padding:60px 20px;
+    color:#999;
+    font-size:16px;
+}
+
+.error-state{
+    text-align:center;
+    padding:60px 20px;
+    color:#e74c3c;
+    font-size:16px;
+}
+
+/* ---- Lightbox ---- */
+.lightbox-overlay{
+    display:none;
+    position:fixed;
+    top:0;left:0;right:0;bottom:0;
+    background:rgba(0,0,0,0.85);
+    z-index:10001;
+    justify-content:center;
+    align-items:center;
+    cursor:pointer;
+}
+
+.lightbox-overlay.active{
+    display:flex;
+}
+
+.lightbox-overlay img{
+    max-width:90%;
+    max-height:90%;
+    border-radius:8px;
+}
+
+/* ---- Responsive ---- */
+@media(max-width:900px){
+    .detail-main{
+        grid-template-columns:1fr;
+        padding:20px;
+    }
+}
+
+@media(max-width:600px){
+    .page-header{
+        padding:16px 20px;
+    }
+    .back-link{
+        margin:0 20px;
+    }
+    .info-grid{
+        grid-template-columns:1fr;
+    }
+    .sla-timer{
+        font-size:36px;
+    }
+}
+
+/* ---- Resolution Review ---- */
+.resolution-review{
+    margin-top:24px;
+    border-top:2px solid #e0e4e8;
+    padding-top:24px;
+}
+
+.resolution-review h2{
+    font-size:18px;
+    font-weight:700;
+    color:#1a2a3a;
+    margin-bottom:16px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.resolution-banner{
+    background:linear-gradient(135deg,#e8f5e9,#c8e6c9);
+    border:1px solid #a5d6a7;
+    border-radius:10px;
+    padding:18px 22px;
+    margin-bottom:20px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.resolution-banner .res-icon{
+    font-size:32px;
+    flex-shrink:0;
+}
+
+.resolution-banner .res-text{
+    font-size:15px;
+    font-weight:600;
+    color:#2e7d32;
+}
+
+.resolution-banner .res-subtext{
+    font-size:13px;
+    color:#558b2f;
+    margin-top:2px;
+}
+
+/* Before/After Comparison */
+.image-compare{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+    margin-bottom:20px;
+}
+
+.compare-box{
+    text-align:center;
+}
+
+.compare-box .compare-label{
+    font-size:12px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    margin-bottom:8px;
+    padding:6px 12px;
+    border-radius:5px;
+    display:inline-block;
+}
+
+.compare-label.before-label{
+    background:#fff3e0;
+    color:#e65100;
+}
+
+.compare-label.after-label{
+    background:#e8f5e9;
+    color:#2e7d32;
+}
+
+.compare-box img{
+    max-width:100%;
+    max-height:200px;
+    border-radius:8px;
+    border:2px solid #ddd;
+    cursor:pointer;
+    transition:transform 0.2s;
+}
+
+.compare-box img:hover{
+    transform:scale(1.03);
+}
+
+.no-compare-img{
+    color:#999;
+    font-size:13px;
+    font-style:italic;
+    padding:40px 20px;
+    text-align:center;
+    background:#f8f9fa;
+    border:2px dashed #ddd;
+    border-radius:8px;
+}
+
+/* Resolution Notes */
+.resolution-notes{
+    background:#f8f9fb;
+    border:1px solid #e2e6ea;
+    border-left:4px solid #2e7d32;
+    border-radius:8px;
+    padding:16px 20px;
+    margin-bottom:20px;
+}
+
+.resolution-notes .notes-label{
+    font-size:12px;
+    font-weight:700;
+    color:#777;
+    text-transform:uppercase;
+    margin-bottom:6px;
+}
+
+.resolution-notes .notes-text{
+    font-size:14px;
+    color:#333;
+    line-height:1.6;
+    white-space:pre-wrap;
+}
+
+/* Citizen Action Buttons */
+.citizen-actions{
+    display:flex;
+    gap:12px;
+    margin-top:20px;
+}
+
+.action-btn{
+    flex:1;
+    padding:14px 20px;
+    border:none;
+    border-radius:10px;
+    font-size:15px;
+    font-weight:700;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    transition:all 0.25s ease;
+}
+
+.action-btn:hover{
+    transform:translateY(-2px);
+}
+
+.btn-confirm-resolved{
+    background:linear-gradient(135deg,#2ecc71,#27ae60);
+    color:#fff;
+    box-shadow:0 4px 15px rgba(46,204,113,0.3);
+}
+
+.btn-confirm-resolved:hover{
+    box-shadow:0 6px 20px rgba(46,204,113,0.4);
+}
+
+.btn-not-resolved{
+    background:linear-gradient(135deg,#e74c3c,#c0392b);
+    color:#fff;
+    box-shadow:0 4px 15px rgba(231,76,60,0.3);
+}
+
+.btn-not-resolved:hover{
+    box-shadow:0 6px 20px rgba(231,76,60,0.4);
+}
+
+/* Reappeal Form */
+.reappeal-form{
+    display:none;
+    margin-top:20px;
+    background:#fff5f5;
+    border:1px solid #ffcdd2;
+    border-radius:12px;
+    padding:24px;
+    animation:slideUpModal 0.3s ease;
+}
+
+.reappeal-form.active{
+    display:block;
+}
+
+@keyframes slideUpModal{
+    from{opacity:0;transform:translateY(15px);}
+    to{opacity:1;transform:translateY(0);}
+}
+
+.reappeal-form h3{
+    font-size:16px;
+    font-weight:700;
+    color:#c62828;
+    margin-bottom:16px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.reappeal-form label{
+    display:block;
+    margin-top:14px;
+    font-weight:600;
+    font-size:13px;
+    color:#555;
+}
+
+.reappeal-form select,
+.reappeal-form textarea{
+    width:100%;
+    padding:10px 12px;
+    margin-top:5px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:14px;
+    font-family:'Inter','Segoe UI',sans-serif;
+    box-sizing:border-box;
+    outline:none;
+    transition:border-color 0.2s;
+}
+
+.reappeal-form select:focus,
+.reappeal-form textarea:focus{
+    border-color:#c62828;
+    box-shadow:0 0 0 3px rgba(198,40,40,0.1);
+}
+
+.reappeal-form textarea{
+    resize:vertical;
+    min-height:90px;
+}
+
+.reappeal-upload{
+    margin-top:6px;
+    border:2px dashed #e0e0e0;
+    border-radius:8px;
+    padding:20px;
+    text-align:center;
+    cursor:pointer;
+    transition:all 0.2s;
+}
+
+.reappeal-upload:hover{
+    border-color:#c62828;
+    background:#fef0f0;
+}
+
+.reappeal-upload input[type="file"]{
+    display:none;
+}
+
+.reappeal-preview{
+    margin-top:8px;
+    position:relative;
+    display:inline-block;
+}
+
+.reappeal-preview img{
+    max-width:100%;
+    max-height:120px;
+    border-radius:6px;
+    border:1px solid #ddd;
+}
+
+.reappeal-preview .remove-reappeal-img{
+    position:absolute;
+    top:-8px;
+    right:-8px;
+    background:#e74c3c;
+    color:white;
+    border:none;
+    border-radius:50%;
+    width:22px;
+    height:22px;
+    font-size:12px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.reappeal-submit-actions{
+    margin-top:18px;
+    display:flex;
+    gap:10px;
+}
+
+.reappeal-submit-btn{
+    padding:12px 24px;
+    border:none;
+    border-radius:8px;
+    font-size:14px;
+    font-weight:700;
+    cursor:pointer;
+    transition:all 0.2s;
+}
+
+.reappeal-submit-btn.primary{
+    background:linear-gradient(135deg,#e74c3c,#c0392b);
+    color:white;
+}
+
+.reappeal-submit-btn.primary:hover{
+    transform:translateY(-1px);
+    box-shadow:0 4px 12px rgba(231,76,60,0.3);
+}
+
+.reappeal-submit-btn.secondary{
+    background:#e0e0e0;
+    color:#555;
+}
+
+.reappeal-submit-btn.secondary:hover{
+    background:#d0d0d0;
+}
+
+.reappeal-submit-btn:disabled{
+    opacity:0.6;
+    cursor:not-allowed;
+    transform:none;
+}
+
+/* Status badges for new statuses */
+.status-reopened{background:#ff9800;}
+.status-closed{background:#607d8b;}
+
+/* Priority badge */
+.priority-badge{
+    display:inline-block;
+    padding:3px 10px;
+    border-radius:4px;
+    font-size:11px;
+    font-weight:700;
+    color:#fff;
+}
+
+.priority-normal{background:#78909c;}
+.priority-high{background:#ff9800;}
+.priority-urgent{background:#e74c3c;animation:pulseUrgent 1.5s infinite;}
+
+@keyframes pulseUrgent{
+    0%,100%{opacity:1;}
+    50%{opacity:0.7;}
+}
+
+/* Reappeal history info */
+.reappeal-info{
+    background:#fff3e0;
+    border:1px solid #ffcc80;
+    border-radius:8px;
+    padding:14px 18px;
+    margin-top:16px;
+    font-size:13px;
+    color:#e65100;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.reappeal-info strong{
+    font-size:14px;
+}
+
+</style>
+</head>
+<body>
+
+<!-- Top Nav -->
+<nav class="top-nav">
+    <div class="nav-brand">
+        <img src="logo.png" alt="JanConnect Logo" class="nav-logo">
+        <div>
+            <div class="nav-title">JanConnect</div>
+            <div class="nav-subtitle">Smart Civic Solutions</div>
+        </div>
+    </div>
+</nav>
+
+<!-- Page Header -->
+<div class="page-header">
+    <h1>Complaint Details</h1>
+    <p>View details and track the status of your grievance</p>
+</div>
+
+<a href="citizen-dashboard.html" class="back-link">← Back to Dashboard</a>
+
+<!-- Main Content -->
+<div class="detail-main" id="detailMain">
+    <div class="loading-state" id="loadingState">Loading complaint details...</div>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox-overlay" id="lightbox" onclick="closeLightbox(event)">
+    <img id="lightboxImg" src="" alt="Evidence" style="display:none;">
+    <video id="lightboxVid" src="" controls style="display:none; max-width: 90%; max-height: 90vh; border-radius: 8px; margin: auto;"></video>
+</div>
+
+<script>
+
+const API_BASE = 'https://smart-grievance-system-noiq.onrender.com/api';
+const urlParams = new URLSearchParams(window.location.search);
+const complaintId = urlParams.get('id');
+
+let slaInterval = null;
+
+// ============ INIT ============
+
+if(!complaintId){
+    showError('No complaint ID specified.');
+} else {
+    loadComplaintDetail();
+}
+
+// ============ LOAD DETAIL ============
+
+async function loadComplaintDetail(){
+    try {
+        const res = await fetch(API_BASE + '/complaints/' + encodeURIComponent(complaintId));
+        
+        if(!res.ok){
+            const data = await res.json();
+            showError(data.error || 'Complaint not found.');
+            return;
+        }
+
+        const complaint = await res.json();
+        renderDetail(complaint);
+
+    } catch(err){
+        showError('Server unavailable. Please try again later.');
+        console.error('Load detail error:', err);
+    }
+}
+
+// ============ RENDER ============
+
+function renderDetail(c){
+    const main = document.getElementById('detailMain');
+    const statusClass = 'status-' + c.status.toLowerCase().replace(' ','-');
+
+    // Calculate SLA
+    const createdAt = new Date(c.createdAt);
+    const slaDeadline = c.slaDeadline ? new Date(c.slaDeadline) : new Date(createdAt.getTime() + 24 * 60 * 60 * 1000);
+    const now = new Date();
+    const remaining = slaDeadline - now;
+    const isResolved = c.status === 'Resolved';
+    const isClosed = c.status === 'Closed';
+    const isReopened = c.status === 'Reopened';
+    const isEscalated = c.status === 'Escalated';
+    const slaBreached = remaining <= 0 && !isResolved && !isClosed;
+
+    // Build resolution review section (shown when Resolved)
+    let resolutionHTML = '';
+    if(isResolved){
+        resolutionHTML = `
+        <div class="resolution-review">
+            <h2>✅ Resolution Review</h2>
+            <div class="resolution-banner">
+                <span class="res-icon">🔔</span>
+                <div>
+                    <div class="res-text">This complaint has been marked as Resolved</div>
+                    <div class="res-subtext">Please review the resolution and confirm if the issue is fixed</div>
+                </div>
+            </div>
+
+            <!-- Before/After Image Comparison -->
+            <div class="image-compare">
+                <div class="compare-box">
+                    <div class="compare-label before-label">📷 Before</div>
+                    ${c.image
+                        ? (c.image.startsWith('data:video') ? '<video src="' + c.image + '" onclick="openLightbox(this.src)" style="width:100%;height:120px;object-fit:cover;border-radius:6px;cursor:pointer;"></video>' : '<img src="' + c.image + '" alt="Before" onclick="openLightbox(this.src)">')
+                        : '<div class="no-compare-img">No before image</div>'
+                    }
+                </div>
+                <div class="compare-box">
+                    <div class="compare-label after-label">📸 After</div>
+                    ${c.afterImage
+                        ? (c.afterImage.startsWith('data:video') ? '<video src="' + c.afterImage + '" onclick="openLightbox(this.src)" style="width:100%;height:120px;object-fit:cover;border-radius:6px;cursor:pointer;"></video>' : '<img src="' + c.afterImage + '" alt="After" onclick="openLightbox(this.src)">')
+                        : '<div class="no-compare-img">No after image uploaded</div>'
+                    }
+                </div>
+            </div>
+
+            <!-- Resolution Notes -->
+            ${c.resolutionNotes ? `
+            <div class="resolution-notes">
+                <div class="notes-label">📝 Resolution Notes from Officer</div>
+                <div class="notes-text">${c.resolutionNotes}</div>
+            </div>` : ''}
+
+            <!-- Citizen Action Buttons -->
+            <div class="citizen-actions" id="citizenActions">
+                <button class="action-btn btn-confirm-resolved" onclick="confirmResolution()">
+                    ✅ Issue Resolved — Close Complaint
+                </button>
+                <button class="action-btn btn-not-resolved" onclick="toggleReappealForm()">
+                    ❌ Not Resolved — Reopen
+                </button>
+            </div>
+
+            <!-- Reappeal Form (hidden by default) -->
+            <div class="reappeal-form" id="reappealForm">
+                <h3>📝 Reappeal Form — Reopen Complaint</h3>
+
+                <label for="reappealReason">Reason for Reopening *</label>
+                <select id="reappealReason">
+                    <option value="">-- Select Reason --</option>
+                    <option value="Issue not fixed">Issue not fixed</option>
+                    <option value="Partially resolved">Partially resolved</option>
+                    <option value="Problem reoccurred">Problem reoccurred</option>
+                    <option value="Wrong resolution">Wrong resolution applied</option>
+                    <option value="Quality not satisfactory">Quality not satisfactory</option>
+                    <option value="Other">Other</option>
+                </select>
+
+                <label for="reappealComment">Additional Comments</label>
+                <textarea id="reappealComment" placeholder="Describe why you are not satisfied with the resolution..."></textarea>
+
+                <label>Upload New Evidence (optional)</label>
+                <div class="reappeal-upload" id="reappealUpload" onclick="document.getElementById('reappealImage').click()">
+                    <input type="file" id="reappealImage" accept="image/*,video/*" onchange="handleReappealImage(event)">
+                    <span style="font-size:24px;">📷/📹</span>
+                    <div style="font-size:13px;color:#777;margin-top:4px;">Click to upload new evidence media</div>
+                </div>
+                <div class="reappeal-preview" id="reappealPreview" style="display:none;">
+                    <img id="reappealPreviewImg" src="" alt="Preview" style="display:none;">
+                    <video id="reappealPreviewVid" src="" controls style="display:none; max-width: 100%; max-height: 120px; border-radius: 6px;"></video>
+                    <button class="remove-reappeal-img" onclick="removeReappealImage()" title="Remove">✕</button>
+                </div>
+
+                <div class="reappeal-submit-actions">
+                    <button class="reappeal-submit-btn primary" id="reappealSubmitBtn" onclick="submitReappeal()">
+                        🔄 Submit Reappeal
+                    </button>
+                    <button class="reappeal-submit-btn secondary" onclick="toggleReappealForm()">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>`;
+    }
+
+    // Reappeal info (shown when Reopened/has reappeal history)
+    let reappealInfoHTML = '';
+    if(c.reappeal_status && (isReopened || c.reappeal_count > 0)){
+        const priorityClass = 'priority-' + (c.priority || 'normal').toLowerCase();
+        reappealInfoHTML = `
+        <div class="reappeal-info">
+            🔄 <div>
+                <strong>Complaint Reopened (Reappeal #${c.reappeal_count})</strong><br>
+                Reason: ${c.reappeal_reason}<br>
+                ${c.reappeal_comment ? 'Comment: ' + c.reappeal_comment + '<br>' : ''}
+                Priority: <span class="priority-badge ${priorityClass}">${c.priority || 'Normal'}</span>
+            </div>
+        </div>`;
+    }
+
+    main.innerHTML = `
+    <!-- LEFT: Complaint Info -->
+    <div class="detail-card">
+        <h2>📋 Submitted Grievance</h2>
+
+        <div class="info-grid">
+            <div class="info-item">
+                <span class="info-label">Complaint ID</span>
+                <div class="info-value">${c.id}</div>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Status</span>
+                <div class="info-value">
+                    <span class="status-badge ${statusClass}">${c.status}</span>
+                    ${c.priority && c.priority !== 'Normal' ? ' <span class="priority-badge priority-' + c.priority.toLowerCase() + '">' + c.priority + ' Priority</span>' : ''}
+                </div>
+            </div>
+            ${c.status === 'Pending' && c.pendingReason ? `
+            <div class="info-item full-width" style="margin-top: -10px;">
+                <div style="background:#fff3cd; color:#856404; padding:10px 14px; border-radius:6px; font-size:14px; border-left:4px solid #ffeeba;">
+                    <strong style="display:block;margin-bottom:4px;">⏳ Admin Note for Pending Status:</strong>
+                    ${c.pendingReason}
+                </div>
+            </div>` : ''}
+            <div class="info-item full-width">
+                <span class="info-label">Complaint Title *</span>
+                <div class="info-value">${c.title}</div>
+            </div>
+            <div class="info-item full-width">
+                <span class="info-label">Description</span>
+                <div class="info-value description">${c.description}</div>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Category</span>
+                <div class="info-value">${c.category}</div>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Ward</span>
+                <div class="info-value">${c.ward}</div>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Location</span>
+                <div class="info-value">${c.address || 'Not specified'}</div>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Filed On</span>
+                <div class="info-value">${c.date}</div>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Assigned Officer</span>
+                <div class="info-value">
+                    ${c.assignedOfficerName 
+                        ? '👮 ' + c.assignedOfficerName + (c.assignedOfficerDepartment ? ' (' + c.assignedOfficerDepartment + ')' : '')
+                        : '<span style="color:#999;">Not yet assigned</span>'
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Evidence -->
+        <div class="evidence-section">
+            <span class="info-label">Upload Evidence (Before Photo)</span>
+            ${c.image 
+                ? (c.image.startsWith('data:video') ? '<video src="' + c.image + '" onclick="openLightbox(this.src)" style="max-height:200px;cursor:pointer;max-width:100%;border-radius:8px;"></video>' : '<img src="' + c.image + '" alt="Evidence" onclick="openLightbox(this.src)">')
+                : '<div class="no-evidence">📷 No evidence image uploaded</div>'
+            }
+        </div>
+
+        ${reappealInfoHTML}
+        ${resolutionHTML}
+    </div>
+
+    <!-- RIGHT: Sidebar -->
+    <div class="sidebar">
+        <!-- SLA Countdown -->
+        <div class="detail-card sla-card">
+            <h2>SLA Countdown</h2>
+            <div class="sla-timer" id="slaTimer">--h --m --s</div>
+            <div class="sla-label">Time for initial response.</div>
+            <div id="slaStatus"></div>
+        </div>
+
+        <!-- Progress Timeline -->
+        <div class="detail-card">
+            <h2>📌 Progress</h2>
+            <div class="timeline" id="timeline"></div>
+        </div>
+
+        <!-- Feedback -->
+        <div class="detail-card feedback-card">
+            <h2>💬 Feedback</h2>
+            <textarea id="feedbackText" placeholder="Share your experience with the grievance process..."></textarea>
+            <button class="feedback-btn" onclick="submitFeedback()" id="feedbackBtn">Submit Feedback</button>
+            <div id="feedbackMsg"></div>
+        </div>
+    </div>
+    `;
+
+    // Start SLA timer
+    startSLATimer(slaDeadline, c.status);
+
+    // Render timeline
+    renderTimeline(c);
+
+    // Load existing feedback
+    loadFeedback(c.id);
+
+    // Store complaint data for reappeal
+    window.currentComplaint = c;
+}
+
+// ============ SLA TIMER ============
+
+function startSLATimer(slaDeadline, status){
+    const timerEl = document.getElementById('slaTimer');
+    const statusEl = document.getElementById('slaStatus');
+
+    if(status === 'Resolved'){
+        timerEl.innerHTML = '✅ Resolved';
+        timerEl.style.color = '#2e7d32';
+        timerEl.style.fontSize = '32px';
+        statusEl.innerHTML = '<div class="sla-status sla-resolved-badge">Complaint resolved successfully</div>';
+        return;
+    }
+
+    if(status === 'Closed'){
+        timerEl.innerHTML = '🔒 Closed';
+        timerEl.style.color = '#607d8b';
+        timerEl.style.fontSize = '32px';
+        statusEl.innerHTML = '<div class="sla-status sla-resolved-badge">Complaint closed by citizen</div>';
+        return;
+    }
+
+    if(status === 'Reopened'){
+        timerEl.style.color = '#ff9800';
+    }
+
+    if(status === 'Escalated'){
+        timerEl.innerHTML = '⚠️ Escalated';
+        timerEl.style.color = '#c62828';
+        timerEl.style.fontSize = '32px';
+        statusEl.innerHTML = '<div class="sla-status sla-breached">SLA breached — auto-escalated</div>';
+        return;
+    }
+
+    function updateTimer(){
+        const now = new Date();
+        const remaining = slaDeadline - now;
+
+        if(remaining <= 0){
+            timerEl.innerHTML = '<span style="color:#c62828">00</span><span class="time-unit">h </span><span style="color:#c62828">00</span><span class="time-unit">m </span><span style="color:#c62828">00</span><span class="time-unit">s</span>';
+            statusEl.innerHTML = '<div class="sla-status sla-breached">⚠️ SLA Breached — Auto-escalating...</div>';
+            clearInterval(slaInterval);
+            // Trigger auto-escalation
+            autoEscalate();
+            return;
+        }
+
+        const hours = Math.floor(remaining / (1000 * 60 * 60));
+        const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
+
+        const hStr = String(hours).padStart(2,'0');
+        const mStr = String(minutes).padStart(2,'0');
+        const sStr = String(seconds).padStart(2,'0');
+
+        timerEl.innerHTML = `<span>${hStr}</span><span class="time-unit">h </span><span>${mStr}</span><span class="time-unit">m </span><span>${sStr}</span><span class="time-unit">s</span>`;
+
+        // Status badge
+        if(hours < 4){
+            statusEl.innerHTML = '<div class="sla-status sla-warning">⏰ Low time remaining</div>';
+        } else {
+            statusEl.innerHTML = '<div class="sla-status sla-within">✅ Within SLA timeframe</div>';
+        }
+    }
+
+    updateTimer();
+    slaInterval = setInterval(updateTimer, 1000);
+}
+
+// ============ AUTO ESCALATE ============
+
+async function autoEscalate(){
+    try {
+        const res = await fetch(API_BASE + '/complaints/' + encodeURIComponent(complaintId) + '/status', {
+            method: 'PATCH',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({ status: 'Escalated' })
+        });
+
+        if(res.ok){
+            // Reload to show updated status
+            setTimeout(() => {
+                loadComplaintDetail();
+            }, 2000);
+        }
+    } catch(err){
+        console.error('Auto-escalate error:', err);
+    }
+}
+
+// ============ TIMELINE ============
+
+function renderTimeline(c){
+    const timeline = document.getElementById('timeline');
+    const status = c.status;
+
+    const steps = [
+        { label: 'Complaint Filed', desc: c.date, done: true },
+        { label: 'Under Review', desc: 'Assigned to department', done: ['In Progress','Resolved','Escalated','Reopened','Closed'].includes(status) },
+        { label: 'In Progress', desc: 'Being worked on', done: ['Resolved','Escalated','Reopened','Closed'].includes(status) || status === 'In Progress' },
+    ];
+
+    // Add the right final step(s) based on status
+    if(status === 'Escalated'){
+        steps.push({ label: 'Escalated', desc: 'SLA breached', done: true });
+    } else if(status === 'Reopened'){
+        steps.push({ label: 'Resolved', desc: 'Marked resolved', done: true });
+        steps.push({ label: 'Reopened', desc: 'Reappeal #' + (c.reappeal_count || 1), done: true });
+    } else if(status === 'Closed'){
+        steps.push({ label: 'Resolved', desc: 'Issue fixed', done: true });
+        steps.push({ label: 'Closed', desc: 'Confirmed by citizen', done: true });
+    } else {
+        steps.push({ label: 'Resolved', desc: 'Issue fixed', done: status === 'Resolved' });
+    }
+
+    let html = '';
+    steps.forEach((step, i) => {
+        let dotClass = 'dot-pending';
+        let icon = (i+1);
+        if(step.done && step.label === 'Escalated'){
+            dotClass = 'dot-escalated';
+            icon = '!';
+        } else if(step.done && step.label === 'Reopened'){
+            dotClass = 'dot-escalated';
+            icon = '🔄';
+        } else if(step.done && step.label === 'Closed'){
+            dotClass = 'dot-done';
+            icon = '🔒';
+        } else if(step.done){
+            dotClass = 'dot-done';
+            icon = '✓';
+        }
+
+        html += `
+        <div class="timeline-item">
+            <div class="timeline-dot ${dotClass}">${icon}</div>
+            <div class="timeline-content">
+                <h4>${step.label}</h4>
+                <p>${step.desc}</p>
+            </div>
+        </div>`;
+    });
+
+    timeline.innerHTML = html;
+}
+
+// ============ FEEDBACK ============
+
+async function submitFeedback(){
+    const text = document.getElementById('feedbackText').value.trim();
+    const btn = document.getElementById('feedbackBtn');
+    const msg = document.getElementById('feedbackMsg');
+
+    if(!text){
+        msg.innerHTML = '<span style="color:#e74c3c">Please enter your feedback.</span>';
+        return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Submitting...';
+
+    try {
+        const res = await fetch(API_BASE + '/complaints/' + encodeURIComponent(complaintId) + '/feedback', {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({ feedback: text, userEmail: localStorage.getItem('userEmail') || '' })
+        });
+
+        if(res.ok){
+            msg.innerHTML = '<div class="feedback-success">✅ Feedback submitted successfully!</div>';
+            document.getElementById('feedbackText').value = '';
+            btn.textContent = 'Submit Feedback';
+            btn.disabled = false;
+        } else {
+            const data = await res.json();
+            msg.innerHTML = '<span style="color:#e74c3c">' + (data.error || 'Failed to submit.') + '</span>';
+            btn.textContent = 'Submit Feedback';
+            btn.disabled = false;
+        }
+    } catch(err){
+        msg.innerHTML = '<span style="color:#e74c3c">Server unavailable.</span>';
+        btn.textContent = 'Submit Feedback';
+        btn.disabled = false;
+    }
+}
+
+async function loadFeedback(complaintId){
+    // Placeholder — feedback is stored but we just reset the form
+}
+
+// ============ HELPERS ============
+
+function showError(msg){
+    document.getElementById('detailMain').innerHTML = '<div class="error-state">' + msg + '</div>';
+}
+
+function openLightbox(src){
+    const isVideo = src.startsWith('data:video');
+    if (isVideo) {
+        document.getElementById('lightboxVid').src = src;
+        document.getElementById('lightboxVid').style.display = 'block';
+        document.getElementById('lightboxImg').style.display = 'none';
+        document.getElementById('lightboxImg').src = '';
+    } else {
+        document.getElementById('lightboxImg').src = src;
+        document.getElementById('lightboxImg').style.display = 'block';
+        document.getElementById('lightboxVid').style.display = 'none';
+        document.getElementById('lightboxVid').src = '';
+    }
+    document.getElementById('lightbox').classList.add('active');
+}
+
+function closeLightbox(e){
+    if (e && e.target && e.target.tagName === 'VIDEO') return;
+    document.getElementById('lightbox').classList.remove('active');
+    const vid = document.getElementById('lightboxVid');
+    if(vid) vid.pause();
+}
+
+// ============ REAPPEAL FUNCTIONS ============
+
+let reappealImageBase64 = null;
+
+async function confirmResolution(){
+    if(!confirm('Are you sure the issue is fully resolved? This will close the complaint.')) return;
+
+    try {
+        const res = await fetch(API_BASE + '/complaints/' + encodeURIComponent(complaintId) + '/close', {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({})
+        });
+
+        const data = await res.json();
+        if(res.ok){
+            alert('✅ ' + data.message);
+            loadComplaintDetail();
+        } else {
+            alert('❌ ' + (data.error || 'Failed to close complaint.'));
+        }
+    } catch(err){
+        alert('Server error. Please try again.');
+        console.error('Close error:', err);
+    }
+}
+
+function toggleReappealForm(){
+    const form = document.getElementById('reappealForm');
+    if(form){
+        form.classList.toggle('active');
+    }
+}
+
+let reappealMediaType = null;
+
+function handleReappealImage(event){
+    const file = event.target.files[0];
+    if(!file) return;
+    if(!file.type.startsWith('image/') && !file.type.startsWith('video/')){
+        alert('Please select a valid image or video file.');
+        return;
+    }
+    if (file.type.startsWith('image/') && file.size > 5 * 1024 * 1024) {
+        alert('Image size must be under 5MB.');
+        return;
+    }
+    if (file.type.startsWith('video/') && file.size > 40 * 1024 * 1024) {
+        alert('Video size must be under 40MB.');
+        return;
+    }
+    
+    reappealMediaType = file.type.startsWith('image/') ? 'image' : 'video';
+    const reader = new FileReader();
+    reader.onload = function(e){
+        reappealImageBase64 = e.target.result;
+        
+        if (reappealMediaType === 'image') {
+            document.getElementById('reappealPreviewImg').src = reappealImageBase64;
+            document.getElementById('reappealPreviewImg').style.display = 'block';
+            document.getElementById('reappealPreviewVid').style.display = 'none';
+            document.getElementById('reappealPreviewVid').src = '';
+        } else {
+            document.getElementById('reappealPreviewVid').src = reappealImageBase64;
+            document.getElementById('reappealPreviewVid').style.display = 'block';
+            document.getElementById('reappealPreviewImg').style.display = 'none';
+            document.getElementById('reappealPreviewImg').src = '';
+        }
+        
+        document.getElementById('reappealPreview').style.display = 'inline-block';
+        document.getElementById('reappealUpload').style.display = 'none';
+    };
+    reader.readAsDataURL(file);
+}
+
+function removeReappealImage(){
+    reappealImageBase64 = null;
+    reappealMediaType = null;
+    document.getElementById('reappealImage').value = '';
+    document.getElementById('reappealPreviewImg').src = '';
+    document.getElementById('reappealPreviewVid').src = '';
+    document.getElementById('reappealPreviewImg').style.display = 'none';
+    document.getElementById('reappealPreviewVid').style.display = 'none';
+    document.getElementById('reappealPreview').style.display = 'none';
+    document.getElementById('reappealUpload').style.display = 'block';
+}
+
+async function submitReappeal(){
+    const reason = document.getElementById('reappealReason').value;
+    const comment = document.getElementById('reappealComment').value.trim();
+    const btn = document.getElementById('reappealSubmitBtn');
+
+    if(!reason){
+        alert('Please select a reason for reopening.');
+        return;
+    }
+
+    btn.disabled = true;
+    btn.innerHTML = '⏳ Submitting Reappeal...';
+
+    try {
+        const res = await fetch(API_BASE + '/complaints/' + encodeURIComponent(complaintId) + '/reappeal', {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({
+                reappeal_reason: reason,
+                reappeal_comment: comment,
+                reappeal_image: reappealImageBase64 || null,
+                citizenEmail: localStorage.getItem('userEmail') || ''
+            })
+        });
+
+        const data = await res.json();
+
+        if(res.ok){
+            alert('✅ ' + data.message + '\nPriority: ' + data.complaint.priority + '\nReappeal #' + data.complaint.reappeal_count);
+            reappealImageBase64 = null;
+            loadComplaintDetail();
+        } else {
+            alert('❌ ' + (data.error || 'Failed to submit reappeal.'));
+            btn.disabled = false;
+            btn.innerHTML = '🔄 Submit Reappeal';
+        }
+    } catch(err){
+        alert('Server error. Please try again.');
+        btn.disabled = false;
+        btn.innerHTML = '🔄 Submit Reappeal';
+        console.error('Reappeal error:', err);
+    }
+}
+
+</script>
+
+<script src="chatbot.js"></script>
+</body>
+</html>
