@@ -1,0 +1,141 @@
+body{
+
+    margin:0;
+    font-family:Segoe UI;
+    
+    background:#f4f6f9;
+    
+    }
+    
+    header{
+    
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    
+    background:#203a43;
+    color:white;
+    
+    padding:15px 30px;
+    
+    }
+    
+    .logo{
+    
+    width:60px;
+    margin-right:10px;
+    
+    }
+    
+    .logo-area{
+    
+    display:flex;
+    align-items:center;
+    
+    }
+    
+    .dashboard{
+    
+    padding:30px;
+    
+    }
+    
+    .top-bar{
+    
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    
+    margin-bottom:20px;
+    
+    }
+    
+    .new-btn{
+    
+    background:#ff6b00;
+    color:white;
+    
+    border:none;
+    
+    padding:10px 18px;
+    
+    border-radius:6px;
+    
+    cursor:pointer;
+    
+    }
+    
+    .complaint-list{
+    
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    
+    gap:20px;
+    
+    }
+    
+    .card{
+    
+    background:white;
+    
+    padding:20px;
+    
+    border-radius:10px;
+    
+    box-shadow:0 4px 15px rgba(0,0,0,0.1);
+    
+    }
+    
+    .status{
+    
+    padding:5px 10px;
+    border-radius:5px;
+    
+    font-size:12px;
+    
+    }
+    
+    .green{
+    
+    background:#2ecc71;
+    color:white;
+    
+    }
+    
+    .amber{
+    
+    background:#f39c12;
+    color:white;
+    
+    }
+    
+    .red{
+    
+    background:#e74c3c;
+    color:white;
+    
+    }
+    
+    .timer{
+    
+    margin-top:10px;
+    font-weight:bold;
+    
+    }
+    
+    .view-btn{
+    
+    margin-top:10px;
+    
+    background:#3498db;
+    color:white;
+    
+    border:none;
+    
+    padding:8px 14px;
+    
+    border-radius:5px;
+    
+    cursor:pointer;
+    
+    }
