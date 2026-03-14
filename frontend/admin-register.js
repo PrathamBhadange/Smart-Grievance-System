@@ -1,4 +1,4 @@
-const API_BASE = 'https://smart-grievance-system-noiq.onrender.com/api';
+const API_BASE = 'https://smart-grievance-system-fvfk.onrender.com/api';
 let profilePhotoBase64 = null;
 let govtIdBase64 = null;
 
